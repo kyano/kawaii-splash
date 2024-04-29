@@ -117,13 +117,13 @@ image is used instead."
 	         (setq files (directory-files dir nil (concat "\\`" name) t))
 	         (fancy-splash-insert :face '(variable-pitch font-lock-comment-face)
 				      (if (= (length files) 1)
-				          "\nAn auto-save file list was found.  "
-				        "\nAuto-save file lists were found.  ")
+				          "An auto-save file list was found.  "
+				        "Auto-save file lists were found.  ")
 				      "If an Emacs session crashed recently,\ntype "
 				      :link `("M-x recover-session RET"
                                               ,(lambda (_button) (call-interactively 'recover-session)))
-				      " to recover the files you were editing.\n")
-                 (insert "\n\n"))))
+				      " to recover the files you were editing.\n"
+                                      "\n\n"))))
         (fancy-splash-insert :face '(variable-pitch font-lock-builtin-face)
                              (emacs-version) "\n")
         (let ((wsl-version (condition-case nil
@@ -142,9 +142,8 @@ image is used instead."
                                (if wsl-version
                                    (concat " on "
                                            (kawaii-splash/scale-svg-icon (all-the-icons-fontawesome-4 "windows") 0.8)
-                                           "WSL")
-                                 "")
-                               "\n")
+                                           "WSL\n")
+                                 "\n"))
           (fancy-splash-insert :face '(variable-pitch (:height 0.8) font-lock-builtin-face)
                                "Window System: " os-icon (upcase (symbol-name window-system)) "\n"))
         (fancy-splash-insert :face '(variable-pitch (:height 0.9))
