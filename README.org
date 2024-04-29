@@ -1,0 +1,28 @@
+* Kawaii Splash
+
+Custom splash buffer with the kawaii image
+
+#+ATTR_ORG: :width 640px
+#+ATTR_HTML: :width 640px
+[[./example.png]]
+
+
+** Install
+
+With =use-package= that is installed by default since Emacs 30,
+
+#+BEGIN_SRC emacs-lisp
+  (use-package kawaii-splash
+    :ensure t
+    :vc (kawaii-splash
+         :url "https://github.com/kyano/kawaii-splash.git"
+         :branch "master")
+    :if (display-graphic-p)
+    :after all-the-icons)
+#+END_SRC
+
+
+** Customize
+
+To change the image, you can set the customization variable: `fancy-splash-image'.
+Please refer the original help message: [[elisp:(describe-variable 'fancy-splash-image)][(describe-variable 'fancy-splash-image)]].
