@@ -30,6 +30,8 @@
 ;;; Code:
 
 (require 'all-the-icons)
+(require 'treemacs-mode)
+(require 'vterm)
 
 (defconst kawaii-splash/menu-items
   `(("Open a File"
@@ -88,9 +90,9 @@ image is used instead."
         (erase-buffer)
         (let* ((image-file (fancy-splash-image-file))
                (img (create-image image-file)))
-	  (when (and (memq 'xpm img)
-		     (eq (frame-parameter nil 'background-mode) 'dark))
-	    (setq img (append img '(:color-symbols (("#000000" . "gray30"))))))
+          (when (and (memq 'xpm img)
+                     (eq (frame-parameter nil 'background-mode) 'dark))
+            (setq img (append img '(:color-symbols (("#000000" . "gray30"))))))
           (insert-image img)
           (insert "\n\n"))
         (fancy-splash-insert :face '(variable-pitch (:height 1.2) font-lock-comment-face)
@@ -111,18 +113,18 @@ image is used instead."
         (insert "\n\n")
         (when auto-save-list-file-prefix
           (let ((dir  (file-name-directory auto-save-list-file-prefix))
-	        (name (file-name-nondirectory auto-save-list-file-prefix))
-	        files)
+                (name (file-name-nondirectory auto-save-list-file-prefix))
+                files)
             (and (file-directory-p dir)
-	         (setq files (directory-files dir nil (concat "\\`" name) t))
-	         (fancy-splash-insert :face '(variable-pitch font-lock-comment-face)
-				      (if (= (length files) 1)
-				          "An auto-save file list was found.  "
-				        "Auto-save file lists were found.  ")
-				      "If an Emacs session crashed recently,\ntype "
-				      :link `("M-x recover-session RET"
+                 (setq files (directory-files dir nil (concat "\\`" name) t))
+                 (fancy-splash-insert :face '(variable-pitch font-lock-comment-face)
+                                      (if (= (length files) 1)
+                                          "An auto-save file list was found.  "
+                                        "Auto-save file lists were found.  ")
+                                      "If an Emacs session crashed recently,\ntype "
+                                      :link `("M-x recover-session RET"
                                               ,(lambda (_button) (call-interactively 'recover-session)))
-				      " to recover the files you were editing.\n"
+                                      " to recover the files you were editing.\n"
                                       "\n\n"))))
         (fancy-splash-insert :face '(variable-pitch font-lock-builtin-face)
                              (emacs-version) "\n")
@@ -148,21 +150,21 @@ image is used instead."
                                "Window System: " os-icon (upcase (symbol-name window-system)) "\n"))
         (fancy-splash-insert :face '(variable-pitch (:height 0.9))
                              emacs-copyright "\n")
-	(skip-chars-backward "\n")
-	(delete-region (point) (point-max))
-	(insert "\n")
+        (skip-chars-backward "\n")
+        (delete-region (point) (point-max))
+        (insert "\n")
         (use-local-map splash-screen-keymap)
         (setq buffer-read-only t)
         (set-buffer-modified-p nil)
         (if (and view-read-only (not view-mode))
-	    (view-mode-enter nil 'kill-buffer))
+            (view-mode-enter nil 'kill-buffer))
         splash-buffer))))
 
 (when (not fancy-splash-image)
   (setq fancy-splash-image
         (concat
          (file-name-directory load-file-name)
-         "gnome_mage.png")))
+         "the_programmer.png")))
 (setq initial-buffer-choice #'kawaii-splash/splash-screen)
 
 (provide 'kawaii-splash)
