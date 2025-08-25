@@ -50,6 +50,10 @@
      "Start an interactive VTerm buffer"
      ,(lambda (_button) (vterm))
      ,(all-the-icons-icon-for-mode 'vterm-mode))
+    ("Package management"
+     "Display a list of packages"
+     ,(lambda (_button) (list-packages))
+     ,(all-the-icons-icon-for-mode 'package-menu-mode))
     ("Customize"
      "Change settings"
      ,(lambda (_button) (customize))
