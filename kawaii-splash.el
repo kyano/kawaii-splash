@@ -174,7 +174,7 @@ image is used instead."
   (setq fancy-splash-image
         (concat
          (file-name-directory load-file-name)
-         "the_programmer.png")))
+         "hacker.png")))
 (setq initial-buffer-choice #'kawaii-splash/splash-screen)
 
 (provide 'kawaii-splash)
