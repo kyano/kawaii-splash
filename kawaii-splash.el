@@ -6,7 +6,7 @@
 ;; Maintainer: Anho Ki
 ;; URL: https://github.com/kyano/kawaii-splash
 ;; Version: 0.0.1
-;; Package-Requires: ((emacs "29.1") (all-the-icons "6.0.0"))
+;; Package-Requires: ((emacs "29.1") (all-the-icons "6.0.0") (vterm) (gptel))
 
 ;; This file is not part of GNU Emacs.
 
@@ -30,6 +30,7 @@
 ;;; Code:
 
 (require 'all-the-icons)
+(require 'gptel)
 (require 'treemacs-mode)
 (require 'vterm)
 
@@ -46,6 +47,10 @@
      "Start treemacs mode and show the sidebar"
      ,(lambda (_button) (treemacs))
      ,(all-the-icons-icon-for-mode 'treemacs-mode))
+    ("Open gptel menu"
+     "Start gptel and show the transient menu"
+     ,(lambda (_button) (call-interactively #'gptel-menu))
+     ,(all-the-icons-fluentui-system-icons "brain_circuit" :style 'filled))
     ("Open VTerm"
      "Start an interactive VTerm buffer"
      ,(lambda (_button) (vterm))
