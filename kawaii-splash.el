@@ -30,9 +30,6 @@
 ;;; Code:
 
 (require 'all-the-icons)
-(require 'gptel)
-(require 'treemacs-mode)
-(require 'vterm)
 
 (defconst kawaii-splash/menu-items
   `(("Open a File"
@@ -51,10 +48,13 @@
      "Start gptel and show the transient menu"
      ,(lambda (_button) (call-interactively #'gptel-menu))
      ,(all-the-icons-fluentui-system-icons "brain_circuit" :style 'filled))
-    ("Open VTerm"
-     "Start an interactive VTerm buffer"
-     ,(lambda (_button) (vterm))
-     ,(all-the-icons-icon-for-mode 'vterm-mode))
+    ("Open Terminal"
+     "Start an interactive terminal buffer"
+     ,(lambda (_button)
+        (cond ((fboundp 'eat) (eat))
+              ((fboundp 'vterm) (vterm))
+              (t (call-interactively 'term))))
+     ,(all-the-icons-icon-for-mode 'term-mode))
     ("Package management"
      "Display a list of packages"
      ,(lambda (_button) (list-packages))
