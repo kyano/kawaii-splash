@@ -51,8 +51,9 @@
     ("Open Terminal"
      "Start an interactive terminal buffer"
      ,(lambda (_button)
-        (cond ((fboundp 'eat) (eat))
+        (cond ((fboundp 'ghostel) (ghostel))
               ((fboundp 'vterm) (vterm))
+              ((fboundp 'eat) (eat))
               (t (call-interactively 'term))))
      ,(all-the-icons-icon-for-mode 'term-mode))
     ("Package management"
