@@ -91,29 +91,32 @@
         (make-local-variable 'startup-screen-inhibit-startup-screen)
 
         ;; Customized `fancy-splash-head'
-        (let* ((image-file (fancy-splash-image-file))
-               (img (create-image image-file))
-               (image-width (and img (car (image-size img))))
-               (window-width (window-width)))
-          (when img
-            (when (> window-width image-width)
-              (let ((text-width 80)
-                    (adjust-left 3))
-                (insert (propertize " " 'display
-                                    `(spaced :align-to (+ ,(- (/ text-width 2)
-                                                              adjust-left)
-                                                          (-0.5 . ,img)))))))
-            (when (and (memq 'xpm img)
-                       (eq (frame-parameter nil 'background-mode) 'dark))
-              (setq img (append img '(:color-symbols (("#000000" . "gray30"))))))
-            (insert-image img)
-            (insert "\n\n")
-            (add-hook 'window-configuration-change-hook
-                      #'(lambda ()
-                          (when (equal (current-buffer)
-                                       splash-buffer)
-                            (setf (image-property img :max-width)
-                                  (window-pixel-width)))))))
+        ;; Without this extra guard `(when window-system)',
+        ;; Flycheck will fail on `init.el'.
+        (when window-system
+          (let* ((image-file (fancy-splash-image-file))
+                 (img (create-image image-file))
+                 (image-width (and img (car (image-size img))))
+                 (window-width (window-width)))
+            (when img
+              (when (> window-width image-width)
+                (let ((text-width 80)
+                      (adjust-left 3))
+                  (insert (propertize " " 'display
+                                      `(spaced :align-to (+ ,(- (/ text-width 2)
+                                                                adjust-left)
+                                                            (-0.5 . ,img)))))))
+              (when (and (memq 'xpm img)
+                         (eq (frame-parameter nil 'background-mode) 'dark))
+                (setq img (append img '(:color-symbols (("#000000" . "gray30"))))))
+              (insert-image img)
+              (insert "\n\n")
+              (add-hook 'window-configuration-change-hook
+                        #'(lambda ()
+                            (when (equal (current-buffer)
+                                         splash-buffer)
+                              (setf (image-property img :max-width)
+                                    (window-pixel-width))))))))
         ;; End of customized `fancy-splash-head'
 
         ;; Customized `fancy-startup-text'
